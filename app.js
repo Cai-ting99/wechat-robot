@@ -1,8 +1,8 @@
 /*
- * @Author: Peanut
+ * @Author: 
  * @Description:  实例化 - 入口文件
  * @Date: 2020-05-19 21:55:04
- * @Last Modified by: Peanut.ZhangHuan
+ * @Last Modified by:
  * @Last Modified time: 2022-10-19 09:17:49
  */
 const { WechatyBuilder } = require("wechaty");

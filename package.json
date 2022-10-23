@@ -2,7 +2,7 @@
   "name": "wechat-robot",
   "version": "1.0.0",
   "description": "一款nodejs版微信机器人，群聊小助手",
-  "author": "Peanut <htmlcs@163.com>",
+  "author": "",
   "license": "MIT",
   "keywords": [
     "微信机器人",
@@ -38,5 +38,10 @@
   },
   "volta": {
     "node": "16.18.0"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
   }
 }

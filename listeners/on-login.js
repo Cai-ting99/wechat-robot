@@ -1,8 +1,8 @@
 /*
- * @Author: Peanut
+ * @Author: 
  * @Description:  登录
  * @Date: 2020-05-20 23:21:06
- * @Last Modified by: Peanut
+ * @Last Modified by: 
  * @Last Modified time: 2021-04-19 22:07:28
  */
 const schedule = require("../schedule");

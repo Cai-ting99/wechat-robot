@@ -1,6 +1,6 @@
 /**
  * 获取二维码，登录
- * by: Peanut
+ * by: 
  */
 async function onScan (qrcode, status) {
   require('qrcode-terminal').generate(qrcode, {small: true})

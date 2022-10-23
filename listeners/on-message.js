@@ -1,8 +1,8 @@
 /*
- * @Author: Peanut
+ * @Author: 
  * @Description:  处理用户消息
  * @Date: 2020-05-20 22:36:28
- * @Last Modified by: Peanut
+ * @Last Modified by: 
  * @Last Modified time: 2021-04-19 22:02:53
  */
 const path = require("path");
@@ -16,8 +16,8 @@ const allKeywords = `回复序号或关键字获取对应服务
 2.毒鸡汤
 3.神回复(略微开车)
 4.英语一句话
-转小写(例：转小写PEANUT)
-转大写(例：转大写peanut)
+转小写()
+转大写()
 转rgb(例：转rgb#cccccc)
 转16进制(例：转16进制rgb(255,255,255))
 天气 城市名(例：天气 西安)
@@ -56,7 +56,6 @@ async function onPeopleMessage(msg, bot) {
   //对config配置文件中 ignore的用户消息不必处理
   if (config.IGNORE.includes(contact.payload.name)) return;
   let content = msg.text().trim(); // 消息内容 使用trim()去除前后空格
-
   if (content === "菜单") {
     await delay(200);
     await msg.say(allKeywords);
@@ -109,7 +108,25 @@ async function onWebRoomMessage(msg, bot) {
       let poison = await superagent.getSoup();
       await delay(200);
       await msg.say(poison);
-    } else if (content === "英语一句话") {
+    }else if(content === "神回复"){
+      const { title, content } = await superagent.getGodReply();
+      await delay(200);
+      await msg.say(`标题：${title}<br><br>神回复：${content}`);
+    }else if(content === "打赏"){
+       //这里换成自己的赞赏二维码
+      const fileBox = FileBox.fromFile(path.join(__dirname, "../imgs/pay.png"));
+      await msg.say("我是秦始皇，打钱!!!!!");
+      await delay(200);
+      await msg.say(fileBox);
+    }else if(content === "emo"){
+    const {content,source} = await superagent.getEmo();
+      await delay(200);
+      await msg.say(`热门歌评:${content}<br><br>歌名:${source}`);
+    } else if(content === "成语接龙"){
+      // const {content,source} = await superagent.getEmo();
+      //   await delay(200);
+        msg.say(`正在努力开发中。。给我打赏会更有动力哦~~~`);
+      }else if (content === "英语一句话") {
       const res = await superagent.getEnglishOne();
       await delay(200);
       await msg.say(`en：${res.en}<br><br>zh：${res.zh}`);

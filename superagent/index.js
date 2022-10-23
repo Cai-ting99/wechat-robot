@@ -4,7 +4,8 @@ const request = require("request");
 const ONE = "http://wufazhuce.com/"; // ONE的web版网站
 const POISON = "https://8zt.cc/"; //毒鸡汤网站
 const TXHOST = "https://api.tianapi.com/txapi/"; // 天行host 官网：tianapi.com
-const APIKEY = ""; // 天行key，请先去网站注册填写key  注册免费  注册后申请下面的接口即可。
+const APIKEY = "e5bee29e4bf4d3434225b115c05cf989"; // 天行key，请先去网站注册填写key  注册免费  注册后申请下面的接口即可。
+
 /**
  * 获取每日一句
  */
@@ -106,6 +107,26 @@ async function getGodReply() {
   }
 }
 /**
+ * 获取网易云热评
+ */
+
+async function getEmo() {
+  const url = "http://api.tianapi.com/hotreview/index"
+  try {
+    let res = await superagent.req(url, "GET", {
+      key: APIKEY
+    });
+    let conent = JSON.parse(res.text)
+    if (conent.code === 200) {
+      return conent.newslist[0]
+    } else {
+      console.log('获取接口失败', conent);
+    }
+  } catch (err){
+    console.log('获取接口失败',err);
+  }
+}
+/**
  * 每日英语一句话
  */
 async function getEnglishOne() {
@@ -130,5 +151,6 @@ module.exports = {
   getChinaFeiyan,
   getProvinceFeiyan,
   getGodReply,
-  getEnglishOne
+  getEnglishOne,
+  getEmo,
 };
