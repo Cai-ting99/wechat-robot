@@ -6,10 +6,15 @@
  * @Last Modified time: 2021-04-19 22:02:53
  */
 const path = require("path");
-const { FileBox } = require("file-box");
+const {
+  FileBox
+} = require("file-box");
 const superagent = require("../superagent");
 const config = require("../config");
-const { colorRGBtoHex, colorHex } = require("../utils");
+const {
+  colorRGBtoHex,
+  colorHex
+} = require("../utils");
 
 const allKeywords = `回复序号或关键字获取对应服务
 1.技术交流群
@@ -82,11 +87,17 @@ async function onPeopleMessage(msg, bot) {
     await delay(200);
     await msg.say(soup);
   } else if (content === "神回复" || parseInt(content) === 3) {
-    const { title, content } = await superagent.getGodReply();
+    const {
+      title,
+      content
+    } = await superagent.getGodReply();
     await delay(200);
     await msg.say(`标题：${title}<br><br>神回复：${content}`);
   } else if (content === "英语一句话" || parseInt(content) === 4) {
-    const { en, zh } = await superagent.getEnglishOne();
+    const {
+      en,
+      zh
+    } = await superagent.getEnglishOne();
     await delay(200);
     await msg.say(`en：${en}<br><br>zh：${zh}`);
   } else {
@@ -108,25 +119,34 @@ async function onWebRoomMessage(msg, bot) {
       let poison = await superagent.getSoup();
       await delay(200);
       await msg.say(poison);
-    }else if(content === "神回复"){
-      const { title, content } = await superagent.getGodReply();
+    } else if (content === "神回复") {
+      const {
+        title,
+        content
+      } = await superagent.getGodReply();
       await delay(200);
       await msg.say(`标题：${title}<br><br>神回复：${content}`);
-    }else if(content === "打赏"){
-       //这里换成自己的赞赏二维码
+    } else if (content === "打赏") {
+      //这里换成自己的赞赏二维码
       const fileBox = FileBox.fromFile(path.join(__dirname, "../imgs/pay.png"));
       await msg.say("我是秦始皇，打钱!!!!!");
       await delay(200);
       await msg.say(fileBox);
-    }else if(content === "emo"){
-    const {content,source} = await superagent.getEmo();
+    } else if (content === "emo") {
+      const {
+        content,
+        source
+      } = await superagent.getEmo();
       await delay(200);
       await msg.say(`热门歌评:${content}<br><br>歌名:${source}`);
-    } else if(content === "成语接龙"){
-      // const {content,source} = await superagent.getEmo();
-      //   await delay(200);
-        msg.say(`正在努力开发中。。给我打赏会更有动力哦~~~`);
-      }else if (content === "英语一句话") {
+    } else if (content === "热搜") {
+      let res = await superagent.getHotSearch();
+      let conentBox="";
+      res.map((item,idx)=>{
+      conentBox+=`${idx +1}、标题：${item.title}<br>内容：${item.digest}<br>`
+      })
+      await msg.say(conentBox)
+    } else if (content === "英语一句话") {
       const res = await superagent.getEnglishOne();
       await delay(200);
       await msg.say(`en：${res.en}<br><br>zh：${res.zh}`);

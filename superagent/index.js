@@ -109,7 +109,6 @@ async function getGodReply() {
 /**
  * 获取网易云热评
  */
-
 async function getEmo() {
   const url = "http://api.tianapi.com/hotreview/index"
   try {
@@ -145,6 +144,19 @@ async function getEnglishOne() {
     console.log("获取接口失败", err);
   }
 }
+/**
+ * 热搜榜
+*/
+async function getHotSearch(){
+  const url = TXHOST+"networkhot/index";
+  let res = await superagent.req(url,'GET',{
+    key:APIKEY
+  })
+  let conent=JSON.parse(res.text)
+  if(conent.code==200){
+    return conent.newslist.splice(0,10)
+  }
+}
 module.exports = {
   getOne,
   getSoup,
@@ -153,4 +165,5 @@ module.exports = {
   getGodReply,
   getEnglishOne,
   getEmo,
+  getHotSearch
 };
